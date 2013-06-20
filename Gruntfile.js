@@ -57,8 +57,8 @@ message:'my Second commit',
 branch:'master',
     },
    // src: [ '<%=db%><%= grunt.template.today("yyyy-mm-dd") %>.zip'],
- src: [ 'Gruntfile.js'],
-  },
+SRC:['Gruntfile.js']  
+},
 
    
   });
