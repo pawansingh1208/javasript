@@ -1,8 +1,7 @@
-
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    db:'database',
+    db:'manusis',
 //coll:'users',
 compress: {
   main: {
@@ -12,37 +11,31 @@ compress: {
    
  files: [
            {
-             
-                 
-             src: ['dump/<%=db%>/*'],
-           
-            },
+  // src: ['dump/<%=db%>/*']
+src:['Gruntfile.js']
+           }
        ]
 }
 },
 
-clean: {
+ clean: {
   build: {
     src: ["src/manusis/*"]
   }
 },
 
  unzip: {
-    	unzip: '<%= grunt.template.today("yyyy-mm-dd") %>.zip',    
-      	
-},
+    	src: '<%=db%><%= grunt.template.today("yyyy-mm-dd") %>.zip'
+      	},
 
 gitco: {
-branch:'master',
-
-//  repo :'https://github.com/pawansingh1208/javasript.git -b test123',
-
+branch:'master'
+//  repo :'https://github.com/pawansingh1208/javasript.git ',
   },
 
 /*mongodump : {
 //manusis:'users'    //databasename:collectionname
 },*/
-
 
 mongorestore : {
   db: 'test',
@@ -53,16 +46,13 @@ mongorestore : {
     options: {
      repo: 'git@github.com:pawansingh1208/javasript.git',
      clone: 'git@github.com:pawansingh1208/javasript.git',
-message:'my Second commit',
-branch:'master',
+message:'Latest commit',
+branch:'master'
     },
-   // src: [ '<%=db%><%= grunt.template.today("yyyy-mm-dd") %>.zip'],
-SRC:['Gruntfile.js']  
-},
-
-   
+  // src: [ '<%=db%><%= grunt.template.today("yyyy-mm-dd")%>']
+src:['Gruntfile.js']  
+}
   });
-
 
 grunt.registerMultiTask('unzip', 'unzip the file', function() {
 var myTerminal = require("child_process").exec,
@@ -80,14 +70,12 @@ myTerminal(commandToBeExecuted, function(error, stdout, stderr) {
    });
 });
 
-
 grunt.loadNpmTasks('grunt-contrib-compress');
 grunt.loadNpmTasks('grunt-gitco');
 grunt.loadNpmTasks('grunt-gh-pages');
 grunt.loadNpmTasks('grunt-mongodump');
 grunt.loadNpmTasks('grunt-gitlist');
 grunt.loadNpmTasks('grunt-contrib-clean');
-grunt.registerTask('tasks', ['mongodump','compress','gh-pages','gitlist','clean']);
-
+grunt.registerTask('tasks', ['mongodump','compress','gh-pages','gitlist','unzip']);
 };
 
